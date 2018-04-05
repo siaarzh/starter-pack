@@ -50,6 +50,16 @@ export function patchModifier(modifier, definition, route = [], shouldApplyDefau
         throw new Error(`No definition for "${route.join('.')}[${modifierKeys.join(', ')}]"`);
       }
       return accum;
+    } else if (definitionType === 'array') {
+      // run through modifier items if definitionItem exists
+      if (definitionItem !== undefined) {
+        const accum = [];
+        for (const [idx, modifierItem] of modifier.entries()) {
+          accum.push(patchModifier(modifierItem, definitionItem, [...route, idx], shouldApplyDefaultValues));
+        }
+        return accum;
+      }
+      return modifier;
     }
     // just return modifier
     return modifier;

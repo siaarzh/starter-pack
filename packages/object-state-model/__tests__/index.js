@@ -39,9 +39,8 @@ describe('object-state-model', () => {
       },
     });
     expect(model.patchFor({}, {})).toEqual({ array: [] });
-    // explicit array will pass
-    expect(model.patchFor({}, { array: ['some value'] })).toEqual({ array: ['some value'] });
-    // trying to assign specific item will validate
+    expect(() => model.patchFor({}, { array: ['some value'] })).toThrow();
+    expect(model.patchFor({}, { array: [{}] })).toEqual({ array: [{ a: 'default value' }] });
     expect(() => model.patchFor({}, { array: { 0: 'some value' } })).toThrow();
     expect(model.patchFor({}, { array: { 0: {} } })).toEqual({ array: { 0: { a: 'default value' } } });
     expect(model.patchFor({ array: [] }, { array: { 0: {} } })).toEqual({ array: { 0: { a: 'default value' } } });

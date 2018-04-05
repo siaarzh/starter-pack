@@ -84,4 +84,7 @@ describe('patchModifier()', () => {
       )
     ).toEqual({ 1: { foo: 'bar', extension: 'default extension' } });
   });
+  test('checks array items defintion', () => {
+    expect(() => patchModifier([{}], { __type: 'array', __item: { __type: 'string' } })).toThrow();
+  });
 });
