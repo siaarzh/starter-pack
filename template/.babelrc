@@ -1,0 +1,33 @@
+{
+  "presets": [
+    [
+      "env",
+      {
+        "useBuiltIns": "entry",
+        "debug": false,
+        "targets": {
+          "browsers": ["last 3 versions"]
+        },
+        "modules": false,
+        "loose": true
+      }
+    ],
+    "react"
+  ],
+  "env": {
+    "test": {
+      "presets": [
+        [
+          "env",
+          {
+            "targets": {
+              "browsers": ["last 3 versions"]
+            }
+          }
+        ],
+        "react"
+      ]
+    }
+  },
+  "plugins": ["transform-object-rest-spread", "syntax-dynamic-import"]
+}

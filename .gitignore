@@ -1,3 +1,5 @@
+build
+!build/.keep
 wallaby.js
 
 # Created by https://www.gitignore.io/api/osx,node
