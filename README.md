@@ -1,5 +1,5 @@
 <p align='center'>
-  <img src='.docs/starter-pack.svg' />
+  <img src='docs/starter-pack.svg' />
 </p>
 
 # What is **starter-pack** and how to use it?
