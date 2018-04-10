@@ -160,7 +160,7 @@ export default class ObjectStateStorage {
     // unsubscribe function
     return () => {
       // remove listener only once
-      if (!listener._isSubscribed === false) {
+      if (!!listener._isSubscribed === false) {
         return;
       }
 

@@ -74,12 +74,16 @@ export class MapDeps extends React.Component {
     const component = this;
     // in case state already changed
     this.setState(mapper(deps));
-    this.unsub = deps.context.session.store.subscribe(function listener(state, prevState) {
+
+    this.stopReceivingUpdates = deps.context.session.store.subscribe(function listener() {
       component.setState(mapper(deps));
     }, true);
   }
   shouldComponentUpdate(nextProps, nextState) {
     return !isEqual(this.state, nextState);
+  }
+  componentWillUnmount() {
+    this.stopReceivingUpdates();
   }
   render() {
     return (
@@ -91,13 +95,13 @@ export class MapDeps extends React.Component {
 }
 
 function createContextProviderComponents() {
-  const { Consumer, Provider } = React.createContext();
+  const Context = React.createContext();
   return {
-    Provider,
-    Consumer: function WithDeps(props) {
+    Provider: Context.Provider,
+    Consumer: function Consumer(props) {
       const { mapper, children } = props;
       return (
-        <Consumer>
+        <Context.Consumer>
           {props => {
             const { deps } = props;
             return (
@@ -106,7 +110,22 @@ function createContextProviderComponents() {
               </MapDeps>
             );
           }}
-        </Consumer>
+        </Context.Consumer>
+      );
+    },
+    StaticConsumer: function StaticConsumer(props) {
+      const { mapper, children } = props;
+      return (
+        <Context.Consumer>
+          {props => {
+            const { deps } = props;
+            return (
+              <React.Fragment>
+                {React.Children.map(children, child => React.cloneElement(child, mapper(deps)))}
+              </React.Fragment>
+            );
+          }}
+        </Context.Consumer>
       );
     },
   };
@@ -122,3 +141,4 @@ if (!hasInstance) {
 
 export const Consumer = global[instanceId].Consumer;
 export const Provider = global[instanceId].Provider;
+export const StaticConsumer = global[instanceId].StaticConsumer;

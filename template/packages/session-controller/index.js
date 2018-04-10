@@ -29,7 +29,7 @@ export class Controller {
   }
 }
 
-export class SessionController {
+export class Session {
   constructor(mountPoint, controllers) {
     this._mountVersion = 0;
     this.mountPoint = mountPoint;
@@ -42,11 +42,19 @@ export class SessionController {
   get mountVersion() {
     return this._mountVersion;
   }
-  mountController(controllerName) {
+  mountController(controllerName, data) {
     this._mountVersion += 1;
     if (this.controller) {
-      if (this.controller.name === controllerName) {
-        this.controller.controllerWillUpdate();
+      if (this.controller.name.toLowerCase() === controllerName.toLowerCase()) {
+        if (
+          this.controller.name !== controllerName &&
+          process.env.NODE_ENV !== 'production' &&
+          console &&
+          console.warn
+        ) {
+          console.warn(`Controller names should have consistent case (${this.controller.name} - ${controllerName})`);
+        }
+        this.controller.controllerWillUpdate(data);
       } else {
         this.controller.controllerWillUnmount();
       }
@@ -64,7 +72,7 @@ export class SessionController {
     importController().then(({ default: NextController }) => {
       if (version === this.mountVersion) {
         this.controller = new NextController(this.context);
-        this.controller.controllerWillMount();
+        this.controller.controllerWillMount(data);
         this.render();
       }
     });

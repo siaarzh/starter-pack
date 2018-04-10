@@ -1,4 +1,4 @@
-# Why current structure?
+# Why?
 
 starter-pack repo consists of 2 parts:
 

@@ -1,10 +1,7 @@
-import { SessionController } from 'session-controller';
+import 'assets/css/global.css';
+import 'focus-watcher';
+import './components/styles-reference';
 
-const controllers = {
-  ExampleController: () => import('./ExampleController'),
-};
+import { start } from './Session';
 
-window.session = new SessionController(document.getElementById('mount-point'), controllers);
-
-window.session.mountController('ExampleController');
-window.session.mountController('ExampleController');
+start();
