@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "webpack:watch": "yarn run clear && webpack --config=webpack.config.js --watch",
-    "clear": "rm -rf build/** && mkdir build/assets && touch .keep"
+    "clear": "rm -rf build/assets/** && touch build/assets/.keep"
   },
   "devDependencies": {
     "babel-eslint": "^8.2.2",

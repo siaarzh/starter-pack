@@ -75,10 +75,10 @@ function withExecutionPerf(fn, ...args) {
 
 function withPromise(fn, store) {
   return function (...args) {
-    const version = store.version;
+    const version = store.stateVersion;
     const handlerContext = this;
     Promise.resolve().then(function () {
-      if (version !== store.version || !handlerContext._isSubscribed) {
+      if (version !== store.stateVersion || !handlerContext._isSubscribed) {
         return;
       }
       fn.call(fn, ...args);
@@ -89,7 +89,7 @@ function withPromise(fn, store) {
 // store with subscriptions
 export default class ObjectStateStorage {
   constructor(initialState = {}, options = {}) {
-    this._version = 0;
+    this._stateVersion = 0;
     this._currentState = initialState;
     this._currentListeners = [];
     this._nextListeners = [];
@@ -115,12 +115,13 @@ export default class ObjectStateStorage {
     if (!provider) {
       return;
     }
+    const prevState = clone(this._currentState);
     this._currentState = merge(this._currentState, patch(this.state));
-    this._version += 1;
+    this._stateVersion += 1;
 
     this._currentListeners = this._nextListeners.slice();
     for (const listener of this._currentListeners) {
-      withExecutionPerf(listener, label);
+      withExecutionPerf(listener, this._currentState, prevState, label);
     }
   }
   replaceState(patch, label) {
@@ -132,12 +133,13 @@ export default class ObjectStateStorage {
     if (!provider) {
       return;
     }
+    const prevState = clone(this._currentState);
     this._currentState = clone(provider);
-    this._version += 1;
+    this._stateVersion += 1;
 
     this._currentListeners = this._nextListeners.slice();
     for (const listener of this._currentListeners) {
-      withExecutionPerf(listener, label);
+      withExecutionPerf(listener, this._currentState, prevState, label);
     }
   }
   subscribe(fn, asynchronous = false) {
@@ -173,7 +175,7 @@ export default class ObjectStateStorage {
     // return copy of currentState
     return clone(this._currentState);
   }
-  get version() {
-    return this._version;
+  get stateVersion() {
+    return this._stateVersion;
   }
 }
