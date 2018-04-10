@@ -1,0 +1,90 @@
+@import '../variables.css';
+
+:global .m-bottom-xs {
+  margin-bottom: var(--box-xs);
+}
+
+:global .m-bottom-s {
+  margin-bottom: var(--box-s);
+}
+
+:global .m-bottom-m {
+  margin-bottom: var(--box-m);
+}
+
+:global .m-bottom-l {
+  margin-bottom: var(--box-l);
+}
+
+:global .m-bottom-xl {
+  margin-bottom: var(--box-xl);
+}
+
+:global .m-top-xs {
+  margin-top: var(--box-xs);
+}
+
+:global .m-top-s {
+  margin-top: var(--box-s);
+}
+
+:global .m-top-m {
+  margin-top: var(--box-m);
+}
+
+:global .m-top-l {
+  margin-top: var(--box-l);
+}
+
+:global .m-top-xl {
+  margin-top: var(--box-xl);
+}
+
+:global .m-left-xs {
+  margin-left: var(--box-xs);
+}
+
+:global .m-left-s {
+  margin-left: var(--box-s);
+}
+
+:global .m-left-m {
+  margin-left: var(--box-m);
+}
+
+:global .m-left-l {
+  margin-left: var(--box-l);
+}
+
+:global .m-left-xl {
+  margin-left: var(--box-xl);
+}
+
+:global .m-right-xs {
+  margin-right: var(--box-xs);
+}
+
+:global .m-right-s {
+  margin-right: var(--box-s);
+}
+
+:global .m-right-m {
+  margin-right: var(--box-m);
+}
+
+:global .m-right-l {
+  margin-right: var(--box-l);
+}
+
+:global .m-right-xl {
+  margin-right: var(--box-xl);
+}
+
+:global .m-0 {
+  margin: 0;
+}
+
+:global .m-auto {
+  margin-left: auto;
+  margin-right: auto;
+}

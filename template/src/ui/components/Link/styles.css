@@ -1,0 +1,45 @@
+@import 'assets/css/variables.css';
+
+.container:hover {
+  opacity: 0.8;
+}
+
+.backdrop {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  border-radius: inherit;
+}
+
+:global(.link) + .backdrop {
+  /* border: 1px solid var(--c-border);
+  background-color: var(--neutral-1);
+  box-shadow: 0 2px 3px var(--c-shadow); */
+}
+
+:global(.link:active) + .backdrop {
+  /* box-shadow: none; */
+}
+
+:global(.enable-focus) :global(.link:focus) + .backdrop {
+  right: -2px;
+  left: -2px;
+  background-color: color(var(--color-accent-1) a(40%));
+}
+
+/* UNDERLINED LINKS */
+:global(.link-underline) + .backdrop {
+  bottom: -2px;
+  border-bottom: 1px solid currentColor;
+  border-radius: 0;
+  opacity: 0.5;
+}
+
+:global(.enable-focus) :global(.link-underline:focus) + .backdrop {
+  right: 0;
+  left: 0;
+}
+
+/* END UNDERLINED LINKS */

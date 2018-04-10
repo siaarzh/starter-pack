@@ -1,0 +1,9 @@
+@import '../variables.css';
+
+:global .w-100 {
+  width: 100%;
+}
+
+:global .iconw-m {
+  width: var(--lh-m);
+}

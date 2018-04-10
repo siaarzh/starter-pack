@@ -1,0 +1,125 @@
+@import '../variables.css';
+
+:global .box-xs {
+  padding: var(--box-xs);
+}
+
+:global .box-s {
+  padding: var(--box-s);
+}
+
+:global .box-m {
+  padding: var(--box-m);
+}
+
+:global .box-l {
+  padding: var(--box-l);
+}
+
+:global .box-xl {
+  padding: var(--box-xl);
+}
+
+:global .landscape-xs {
+  padding: var(--landscape-xs);
+}
+
+:global .landscape-s {
+  padding: var(--landscape-s);
+}
+
+:global .landscape-m {
+  padding: var(--landscape-m);
+}
+
+:global .landscape-l {
+  padding: var(--landscape-l);
+}
+
+:global .landscape-xl {
+  padding: var(--landscape-xl);
+}
+
+:global .p-bottom-xs {
+  padding-bottom: var(--box-xs);
+}
+
+:global .p-bottom-s {
+  padding-bottom: var(--box-s);
+}
+
+:global .p-bottom-m {
+  padding-bottom: var(--box-m);
+}
+
+:global .p-bottom-l {
+  padding-bottom: var(--box-l);
+}
+
+:global .p-bottom-xl {
+  padding-bottom: var(--box-xl);
+}
+
+:global .p-top-xs {
+  padding-top: var(--box-xs);
+}
+
+:global .p-top-s {
+  padding-top: var(--box-s);
+}
+
+:global .p-top-m {
+  padding-top: var(--box-m);
+}
+
+:global .p-top-l {
+  padding-top: var(--box-l);
+}
+
+:global .p-top-xl {
+  padding-top: var(--box-xl);
+}
+
+:global .p-left-xs {
+  padding-left: var(--box-xs);
+}
+
+:global .p-left-s {
+  padding-left: var(--box-s);
+}
+
+:global .p-left-m {
+  padding-left: var(--box-m);
+}
+
+:global .p-left-l {
+  padding-left: var(--box-l);
+}
+
+:global .p-left-xl {
+  padding-left: var(--box-xl);
+}
+
+:global .p-right-xs {
+  padding-right: var(--box-xs);
+}
+
+:global .p-right-s {
+  padding-right: var(--box-s);
+}
+
+:global .p-right-m {
+  padding-right: var(--box-m);
+}
+
+:global .p-right-l {
+  padding-right: var(--box-l);
+}
+
+:global .p-right-xl {
+  padding-right: var(--box-xl);
+}
+
+:global .p-0 {
+  padding: 0;
+}

@@ -1,0 +1,9 @@
+@import '../variables.css';
+
+:global .minvh-100 {
+  min-height: 100vh;
+}
+
+:global .iconh-m {
+  height: var(--lh-m);
+}

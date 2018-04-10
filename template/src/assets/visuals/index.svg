@@ -1,0 +1,9 @@
+<symbol id='svg-example' viewBox='0 0 20 20'>
+  <circle cx='10' cy='10' r='8' fill='currentColor' />
+</symbol>
+<symbol id='svg-select' viewBox="0 0 24 24">
+  <polyline fill="none" stroke="currentColor" stroke-width="2" points="17 10 12 15 7 10"/>
+</symbol>
+<svg id='svg-checkmark' viewBox="0 0 24 24">
+  <polyline fill="none" stroke="currentColor" stroke-width="2" points="19 7 10 16 5 11"/>
+</svg>

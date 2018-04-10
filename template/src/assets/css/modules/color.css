@@ -1,0 +1,24 @@
+@import '../variables.css';
+
+:global .color-neutral-0 {
+  color: var(--color-neutral-0);
+}
+:global .color-neutral-1 {
+  color: var(--color-neutral-1);
+}
+:global .color-neutral-2 {
+  color: var(--color-neutral-2);
+}
+:global .color-neutral-3 {
+  color: var(--color-neutral-3);
+}
+:global .color-neutral-4 {
+  color: var(--color-neutral-4);
+}
+:global .color-neutral-5 {
+  color: var(--color-neutral-5);
+}
+
+:global .color-accent-1 {
+  color: var(--color-accent-1);
+}

@@ -1,0 +1,39 @@
+@import 'assets/css/variables.css';
+
+.container {
+  width: 100%;
+}
+
+.container:hover {
+  opacity: 0.8;
+}
+
+.backdrop {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  border: 1px solid currentColor;
+  border-radius: inherit;
+}
+
+select + .backdrop {
+  /* border: 1px solid var(--c-border);
+  background-color: var(--neutral-1);
+  box-shadow: 0 2px 3px var(--c-shadow); */
+}
+
+select:active + .backdrop {
+  /* box-shadow: none; */
+}
+
+select:focus + .backdrop {
+  top: -1px;
+  right: -1px;
+  bottom: -1px;
+  left: -1px;
+  border-width: 2px;
+  /* border: 1px solid var(--highlight-1);
+  background-color: var(--neutral-1); */
+}

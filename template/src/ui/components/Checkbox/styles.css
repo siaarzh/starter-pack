@@ -1,0 +1,24 @@
+@import 'assets/css/variables.css';
+
+.checkbox {
+  float: left;
+  position: relative;
+}
+
+.backdrop {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  border-radius: inherit;
+  border: 1px solid currentColor;
+}
+
+:global(.enable-focus) input:focus + .checkbox .backdrop {
+  top: -1px;
+  right: -1px;
+  bottom: -1px;
+  left: -1px;
+  border-width: 2px;
+}

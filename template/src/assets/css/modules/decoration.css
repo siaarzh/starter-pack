@@ -1,0 +1,7 @@
+:global .cursor-pointer {
+  cursor: pointer;
+}
+
+:global .user-select-none {
+  user-select: none;
+}
