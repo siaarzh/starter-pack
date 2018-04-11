@@ -4,7 +4,7 @@ module.exports = {
   plugins: [
     require('postcss-smart-import')({
       root: resolve(__dirname),
-      path: [resolve(__dirname, 'node_modules'), resolve(__dirname, 'modules')],
+      path: [resolve(__dirname, 'node_modules')],
     }),
     require('postcss-custom-media')({}),
     require('postcss-custom-properties')({ preserve: false }),

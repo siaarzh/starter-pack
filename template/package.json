@@ -4,6 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
+    "server:start": "micro-dev ./server/index.js",
     "webpack:watch": "yarn run clear && webpack --config=webpack.config.js --watch",
     "clear": "rm -rf build/assets/** && touch build/assets/.keep"
   },
@@ -24,9 +25,13 @@
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
+    "classnames": "^2.2.5",
     "css-loader": "^0.28.11",
     "history": "^4.7.2",
     "lodash.get": "^4.4.2",
+    "micro": "^9.1.4",
+    "micro-dev": "^2.2.2",
+    "mime": "^2.2.2",
     "mini-css-extract-plugin": "^0.4.0",
     "normalize.css": "^8.0.0",
     "postcss-calc": "^6.0.1",

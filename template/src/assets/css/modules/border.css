@@ -27,3 +27,7 @@
 :global .r-m {
   border-radius: var(--radius-m);
 }
+
+:global .r-inherit {
+  border-radius: inherit;
+}
