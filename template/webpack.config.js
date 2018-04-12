@@ -37,12 +37,6 @@ ExtractManifestPlugin.prototype.apply = function applyExtractManifestPlugin(comp
   });
 };
 
-const postcssOptions = {
-  config: {
-    path: path.resolve(__dirname, 'postcss.config.js'),
-  },
-};
-
 const options = {
   mode,
   entry: {
@@ -104,7 +98,25 @@ const options = {
           },
           {
             loader: 'postcss-loader',
-            options: postcssOptions,
+            options: {
+              plugins: [
+                require('postcss-smart-import')({
+                  addDependencyTo: webpack,
+                  root: path.resolve(__dirname),
+                  path: [path.resolve(__dirname, 'node_modules'), path.resolve(__dirname, 'src')],
+                }),
+                require('postcss-custom-media')({}),
+                require('postcss-custom-properties')({ preserve: false }),
+                require('postcss-calc')({}),
+                require('postcss-color-function')({}),
+                require('postcss-discard-comments')({}),
+                require('postcss-remove-root')({}),
+                require('autoprefixer')({
+                  browsers: ['last 2 versions'],
+                }),
+                require('postcss-clean')({}),
+              ],
+            },
           },
         ],
       },
