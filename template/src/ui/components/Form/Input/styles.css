@@ -1,0 +1,17 @@
+@import 'assets/css/variables.css';
+
+.backdrop {
+  border: 1px solid currentColor;
+}
+
+:global(input:focus) + .backdrop {
+  top: -1px;
+  right: -1px;
+  bottom: -1px;
+  left: -1px;
+  border: 2px solid currentColor;
+}
+
+input:-webkit-autofill + .backdrop {
+  background-color: yellow;
+}

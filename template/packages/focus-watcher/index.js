@@ -1,7 +1,7 @@
 const TAB = 9;
 
 class FocusWatcher {
-  constructor(className = 'enable-focus') {
+  constructor(className = 'with-focus-ring') {
     this.className = className;
     this.onKeyDown = this.onKeyDown.bind(this);
     this.onMouseDown = this.onMouseDown.bind(this);

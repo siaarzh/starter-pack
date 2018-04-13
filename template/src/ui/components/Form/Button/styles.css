@@ -1,0 +1,21 @@
+@import 'assets/css/variables.css';
+
+.backdrop {
+  border: 1px solid currentColor;
+}
+
+:global(.with-focus-ring) :global(button:focus) + .backdrop,
+.container:hover .backdrop {
+  top: -1px;
+  right: -1px;
+  bottom: -1px;
+  left: -1px;
+  border: 2px solid currentColor;
+  /* 
+    For a transparent outline before border:
+    padding: 1px;
+    border: 1px solid var(--highlight-1);
+    background-color: var(--neutral-1);
+    background-clip: content-box;
+   */
+}

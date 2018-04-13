@@ -19,6 +19,10 @@ select {
   -webkit-appearance: none;
 }
 
+input::placeholder {
+  color: var(--color-neutral-4);
+}
+
 input:focus,
 textarea:focus,
 button:focus,
