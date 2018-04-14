@@ -97,22 +97,22 @@ export default class Router {
       throw new Error(`No 404 route handler found (${location.pathname})`);
     }
   }
-  add(shorthand, route, onVisit = () => {}) {
+  add(pagename, route, onVisit = () => {}) {
     this._routes.push({
-      shorthand,
+      pagename,
       pattern: route,
       onVisit,
     });
     // chain
     return this;
   }
-  urlFor(shorthand, data = { props: {}, query: {} }) {
+  urlFor(pagename, data = { props: {}, query: {} }) {
     data = merge({ props: {}, query: {} }, data);
     const route = this._routes.find(route => {
-      return route.shorthand === shorthand;
+      return route.pagename === pagename;
     });
     if (!route) {
-      throw new Error(`No route found for ${shorthand}`);
+      throw new Error(`No route found for ${pagename}`);
     }
     const patternComponents = decomposePathname(route.pattern);
     const pathname = patternComponents
@@ -135,10 +135,10 @@ export default class Router {
   historyReplace(url) {
     this._history.replace(url);
   }
-  historyPushShorthand(shorthand, routeData) {
-    this.historyPush(this.urlFor(shorthand, routeData));
+  historyPushPage(pagename, data) {
+    this.historyPush(this.urlFor(pagename, data));
   }
-  historyReplaceShorthand(shorthand, routeData) {
-    this.historyReplace(this.urlFor(shorthand, routeData));
+  historyReplacePage(pagename, data) {
+    this.historyReplace(this.urlFor(pagename, data));
   }
 }

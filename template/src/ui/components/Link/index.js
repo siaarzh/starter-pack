@@ -1,23 +1,44 @@
 import c from 'classnames';
+import { StaticConsumer } from 'components-di';
+import WithBackdrop from 'components/WithBackdrop';
 import React from 'react';
 
 import s from './styles.css';
 
-class Link extends React.Component {
-  render() {
-    const { containerProps = {}, linkProps = {}, backdropProps = {}, children } = this.props;
-    const { className: containerClassName, ...otherContainerProps } = containerProps;
-    const { className: linkClassName, ...otherLinkProps } = linkProps;
-    const { className: backdropClassName, ...otherBackdropProps } = backdropProps;
-    return (
-      <div className={c('relative inline-block', s.container, containerClassName)} {...otherContainerProps}>
-        <a className={c('link z1', linkClassName)} {...otherLinkProps}>
-          {children}
-        </a>
-        <div className={c(s.backdrop, backdropClassName)} {...otherBackdropProps} />
-      </div>
-    );
-  }
+export function Link({ children, container = {}, backdrop = {}, className, ...restProps }) {
+  container.className = ((container.className || '') + ` inline-block ${s.container || ''}`).trim();
+  backdrop.className = ((backdrop.className || '') + s.backdrop).trim();
+  return (
+    <WithBackdrop container={container} backdrop={backdrop}>
+      <a className={c('relative z1 cursor-pointer', s.link, className)} {...restProps}>
+        {children}
+      </a>
+    </WithBackdrop>
+  );
 }
 
-export default Link;
+function mapper({ context }) {
+  return {
+    urlFor: context.session.urlFor,
+    historyPushPage: context.session.historyPushPage,
+  };
+}
+
+function WithRouterActions({ urlFor, historyPushPage, pagename, data, children }) {
+  const href = urlFor(pagename, data);
+  function onClick(evt) {
+    evt.preventDefault();
+    historyPushPage(pagename, data);
+  }
+  return React.Children.map(children, child => React.cloneElement(child, { href, onClick }));
+}
+
+export function LinkTo({ children, page, data, ...restProps }) {
+  return (
+    <StaticConsumer mapper={mapper}>
+      <WithRouterActions pagename={page} data={data}>
+        <Link {...restProps}>{children}</Link>
+      </WithRouterActions>
+    </StaticConsumer>
+  );
+}

@@ -5,7 +5,7 @@ const Router = require('../index.js').default;
 
 const mockData = [
   {
-    shorthand: 'test-1',
+    pagename: 'test-1',
     pathname: '/hello/foobar',
     search: '?foo=bar',
     pattern: '/hello/:world',
@@ -24,7 +24,7 @@ describe('Router', () => {
   test('matches locations and routes', () => {
     const router = new Router();
     for (const mockRoute of mockData) {
-      router.add(mockRoute.shorthand, mockRoute.pattern, data => {
+      router.add(mockRoute.pagename, mockRoute.pattern, data => {
         expect(data).toEqual(mockRoute.data);
       });
     }
@@ -39,7 +39,7 @@ describe('Router', () => {
     router.onLocationChange({ pathname: 'blah-blah', search: '' });
     expect(notFoundHandler).toBeCalled();
   });
-  test('returns url from provided route shorthand and props', () => {
+  test('returns url from provided route pagename and props', () => {
     const router = new Router();
     router.add('foobar', '/:hello/:world/', () => {});
     expect(router.urlFor('foobar', { props: { hello: 'world', world: 'hello' }, query: { foo: 'bar' } })).toEqual(

@@ -1,13 +1,5 @@
 @import '../variables.css';
 
-:global .ff-system {
-  font-family: var(--ff-system);
-}
-
-:global .ff-heading {
-  font-family: var(--ff-heading);
-}
-
 h1,
 h2,
 h3,
@@ -21,6 +13,18 @@ h4,
   padding: 0;
   font-weight: bold;
   font-family: var(--ff-heading);
+}
+
+:global .ff-system {
+  font-family: var(--ff-system);
+}
+
+:global .ff-heading {
+  font-family: var(--ff-heading);
+}
+
+:global .ff-mono {
+  font-family: var(--ff-mono);
 }
 
 h4,

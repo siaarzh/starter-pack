@@ -4,6 +4,7 @@ import Button from 'components/Form/Button';
 import Input from 'components/Form/Input';
 import WithErrors from 'components/Form/WithErrors';
 import WithLabel from 'components/Form/WithLabel';
+import { LinkTo } from 'components/Link';
 import React from 'react';
 
 import { addComponent } from '../Session.js';
@@ -41,6 +42,14 @@ function mapper({ context, actions }) {
 addComponent(
   'form',
   <div className="box-xl">
+    <div className="m-bottom-l">
+      <LinkTo page="playground" className="ff-mono">
+        {'> PL4YGR0UND '}
+        <span role="img" aria-label="Alien Monster">
+          👾
+        </span>
+      </LinkTo>
+    </div>
     <h1 className="m-bottom-m">Form example</h1>
     <Consumer mapper={mapper}>
       <ExampleForm />

@@ -1,8 +1,8 @@
-import { Controller, Session } from 'session-controller';
-
 import { Consumer } from 'components-di';
+import { LinkTo } from 'components/Link';
 import React from 'react';
 import Router from 'router';
+import { Controller, Session } from 'session-controller';
 
 let controllers = {};
 
@@ -24,22 +24,22 @@ export function addComponent(name, view, initialState = {}, actions = {}) {
   controllers[name] = () => Promise.resolve({ default: createController(name, view, initialState, actions) });
 }
 
-export function Playground({ components, actions }) {
+export function Playground({ components }) {
   return (
     <div className="box-l">
+      <h1 className="m-bottom-l ff-mono regular">
+        {'> PL4YGR0UND '}
+        <span role="img" aria-label="Alien Monster">
+          👾
+        </span>
+      </h1>
       <ul>
         {components.map(componentName => {
           return (
             <li key={componentName}>
-              <a
-                className="link underline inline-block"
-                href={actions.urlFor('component', { props: { name: componentName } })}
-                onClick={evt => {
-                  evt.preventDefault();
-                  actions.historyPushShorthand('component', { props: { name: componentName } });
-                }}>
+              <LinkTo page="playground-component" data={{ props: { name: componentName } }}>
                 {componentName}
-              </a>
+              </LinkTo>
             </li>
           );
         })}
@@ -59,23 +59,17 @@ export function start() {
       }}>
       <Playground />
     </Consumer>,
-    { components: Object.keys(controllers) },
-    {
-      urlFor: (context, ...args) => {
-        router.urlFor(...args);
-      },
-      historyPushShorthand: (context, ...args) => {
-        router.historyPushShorthand(...args);
-      },
-    }
+    { components: Object.keys(controllers) }
   );
 
   window.session = new Session(document.getElementById('mount-point'), controllers);
+  window.session.context.urlFor = router.urlFor.bind(router);
+  window.session.context.historyPushPage = router.historyPushPage.bind(router);
   router
-    .add('component', '/playground/:name', ({ props }) => {
+    .add('playground-component', '/playground/:name', ({ props }) => {
       window.session.mountController(props.name);
     })
-    .add('index', '/playground', () => {
+    .add('playground', '/playground', () => {
       window.session.mountController('playground');
     })
     .add('404', '/404', () => {
