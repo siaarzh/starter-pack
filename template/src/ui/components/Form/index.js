@@ -35,7 +35,7 @@ export default class Form extends Component {
     return get(this.state.fields, name);
   }
   errorsFor(name) {
-    return get(this.props.errors, name);
+    return get(this.props.errors, name, []);
   }
   handleChange(evt) {
     const modifier = modifierFor(evt);

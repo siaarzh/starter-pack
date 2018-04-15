@@ -1,7 +1,11 @@
 import { Consumer } from 'components-di';
 import Form from 'components/Form';
 import Button from 'components/Form/Button';
+import Checkbox from 'components/Form/Checkbox';
 import Input from 'components/Form/Input';
+import Radio from 'components/Form/Radio';
+import Select from 'components/Form/Select';
+import Textarea from 'components/Form/Textarea';
 import WithErrors from 'components/Form/WithErrors';
 import WithLabel from 'components/Form/WithLabel';
 import { LinkTo } from 'components/Link';
@@ -21,6 +25,69 @@ class ExampleForm extends Form {
               value={this.valueFor('input')}
               initialValue={this.initialValueFor('input')}>
               <Input className="landscape-m" onChange={this.handleChange.bind(this)} />
+            </WithLabel>
+          </WithErrors>
+        </div>
+        <div className="m-bottom-m">
+          <WithErrors errors={this.errorsFor('textarea')}>
+            <WithLabel
+              label="Textarea"
+              name="textarea"
+              value={this.valueFor('textarea')}
+              initialValue={this.initialValueFor('textarea')}>
+              <Textarea className="landscape-m" onChange={this.handleChange.bind(this)} />
+            </WithLabel>
+          </WithErrors>
+        </div>
+        <div className="m-bottom-m">
+          <WithErrors errors={this.errorsFor('select')}>
+            <WithLabel
+              label="Select"
+              name="select"
+              value={this.valueFor('select')}
+              initialValue={this.initialValueFor('select')}>
+              <Select
+                className="landscape-m"
+                options={['a', 'b', 'c']}
+                labels={{ a: 'Label for a', b: 'Label for b' }}
+                onChange={this.handleChange.bind(this)}
+              />
+            </WithLabel>
+          </WithErrors>
+        </div>
+        <div className="m-bottom-m">
+          <WithErrors errors={this.errorsFor('checkbox')}>
+            <WithLabel
+              nofocus
+              label="Checkbox"
+              name="checkbox"
+              value={this.valueFor('checkbox')}
+              initialValue={this.initialValueFor('checkbox')}
+              onChange={this.handleChange.bind(this)}>
+              <Checkbox container={{ className: 'm-bottom-m' }} checked={this.valueFor('checkbox.a')} value="a">
+                Value a
+              </Checkbox>
+              <Checkbox checked={this.valueFor('checkbox.b')} value="b">
+                Value b
+              </Checkbox>
+            </WithLabel>
+          </WithErrors>
+        </div>
+        <div className="m-bottom-m">
+          <WithErrors errors={this.errorsFor('radio')}>
+            <WithLabel
+              nofocus
+              label="Radio"
+              name="radio"
+              value={this.valueFor('radio')}
+              initialValue={this.initialValueFor('radio')}
+              onChange={this.handleChange.bind(this)}>
+              <Radio container={{ className: 'm-bottom-m' }} checked={this.valueFor('radio') === 'a'} value="a">
+                Value a
+              </Radio>
+              <Radio checked={this.valueFor('radio') === 'b'} value="b">
+                Value b
+              </Radio>
             </WithLabel>
           </WithErrors>
         </div>
@@ -59,9 +126,16 @@ addComponent(
     form: {
       fields: {
         input: 'default value',
+        textarea: '',
+        checkbox: {
+          a: false,
+          b: true,
+        },
+        radio: 'a',
       },
       errors: {
         input: ['Example error'],
+        textarea: [],
       },
     },
   },

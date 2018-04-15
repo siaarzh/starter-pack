@@ -19,6 +19,11 @@ select {
   -webkit-appearance: none;
 }
 
+textarea {
+  max-width: 100%;
+  min-width: 100%;
+}
+
 input::placeholder {
   color: var(--color-neutral-4);
 }

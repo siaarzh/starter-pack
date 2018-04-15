@@ -4,7 +4,7 @@
   border: 1px solid currentColor;
 }
 
-:global(.with-focus-ring) :global(button:focus) + .backdrop,
+:global(.with-focus-ring) button:focus + .backdrop,
 .container:hover .backdrop {
   top: -1px;
   right: -1px;

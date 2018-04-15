@@ -1,0 +1,33 @@
+@import 'assets/css/variables.css';
+
+.radio {
+  float: left;
+  height: var(--lh-m);
+  width: var(--lh-m);
+  margin-right: var(--box-m);
+  border-radius: 50%;
+}
+
+.radio-backdrop {
+  border: 1px solid currentColor;
+}
+
+:global(.with-focus-ring) input[type='radio']:focus + .radio .radio-backdrop,
+.container:hover .radio-backdrop {
+  top: -1px;
+  right: -1px;
+  bottom: -1px;
+  left: -1px;
+  border: 2px solid currentColor;
+}
+
+.radio-mark {
+  border-radius: 50%;
+  background-color: currentColor;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: var(--box-m);
+  height: var(--box-m);
+  transform: translate3d(-50%, -50%, 0);
+}

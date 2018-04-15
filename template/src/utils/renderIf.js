@@ -1,6 +1,9 @@
 export default (flag, renderer = () => null) => {
   if (flag) {
-    return renderer();
+    if (typeof renderer === 'function') {
+      return renderer();
+    }
+    return renderer;
   }
   return null;
 };

@@ -4,11 +4,14 @@
   border: 1px solid currentColor;
 }
 
-:global(select:focus) + .backdrop,
-.container:hover .backdrop {
+:global(textarea:focus) + .backdrop {
   top: -1px;
   right: -1px;
   bottom: -1px;
   left: -1px;
   border: 2px solid currentColor;
+}
+
+textarea:-webkit-autofill + .backdrop {
+  background-color: yellow;
 }

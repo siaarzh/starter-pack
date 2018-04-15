@@ -2,6 +2,26 @@
 
 .checkbox {
   float: left;
+  height: var(--lh-m);
+  width: var(--lh-m);
+  margin-right: var(--box-m);
+}
+
+.checkbox-backdrop {
+  border: 1px solid currentColor;
+}
+
+:global(.with-focus-ring) input[type='checkbox']:focus + .checkbox .checkbox-backdrop,
+.container:hover .checkbox-backdrop {
+  top: -1px;
+  right: -1px;
+  bottom: -1px;
+  left: -1px;
+  border: 2px solid currentColor;
+}
+
+/* .checkbox {
+  float: left;
   position: relative;
 }
 
@@ -21,4 +41,4 @@
   bottom: -1px;
   left: -1px;
   border-width: 2px;
-}
+} */

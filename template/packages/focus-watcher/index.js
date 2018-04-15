@@ -7,9 +7,8 @@ class FocusWatcher {
     this.onMouseDown = this.onMouseDown.bind(this);
     window.addEventListener('keydown', this.onKeyDown);
   }
-  onKeyDown(evt) {
-    if (evt.keyCode === TAB) {
-      // add something to classList
+  onKeyDown(evt, force = false) {
+    if (evt.keyCode === TAB || force) {
       document.body.classList.add(this.className);
 
       window.removeEventListener('keydown', this.onKeyDown);
@@ -21,6 +20,9 @@ class FocusWatcher {
 
     window.removeEventListener('mousedown', this.onMouseDown);
     window.addEventListener('keydown', this.onKeyDown);
+  }
+  enableFocusRing() {
+    this.onKeyDown({}, true);
   }
 }
 
