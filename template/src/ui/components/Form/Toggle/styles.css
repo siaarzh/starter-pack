@@ -1,0 +1,42 @@
+@import 'assets/css/variables.css';
+
+.toggle {
+  float: left;
+  height: var(--lh-m);
+  width: calc(1.5 * var(--lh-m));
+  margin-right: var(--box-m);
+  border-radius: 9999em;
+}
+
+.toggle-backdrop {
+  border: 1px solid currentColor;
+}
+
+:global(.with-focus-ring) input[type='checkbox']:focus + .toggle .toggle-backdrop,
+.container:hover .toggle-backdrop {
+  top: -1px;
+  right: -1px;
+  bottom: -1px;
+  left: -1px;
+  border: 2px solid currentColor;
+}
+
+.toggle-mark {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: var(--lh-m);
+  height: var(--lh-m);
+  border: 2px solid currentColor;
+  border-radius: 50%;
+  background-color: var(--color-neutral-0);
+}
+
+input[type='checkbox']:checked + .toggle .toggle-mark {
+  left: auto;
+  right: 0px;
+}
+
+input[type='checkbox']:checked + .toggle .toggle-backdrop {
+  background-color: currentColor;
+}

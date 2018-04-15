@@ -13,7 +13,10 @@ export function deposit(value, path) {
 
 export function modifierFor(evt) {
   const { type, name, value, checked } = evt.target;
-  const path = name.split('.');
+  let path = [];
+  if (name.length > 0) {
+    path = name.split('.');
+  }
   if (type === 'checkbox') {
     return deposit({ [value]: checked }, path);
   } else {

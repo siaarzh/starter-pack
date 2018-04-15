@@ -6,6 +6,7 @@ import Input from 'components/Form/Input';
 import Radio from 'components/Form/Radio';
 import Select from 'components/Form/Select';
 import Textarea from 'components/Form/Textarea';
+import Toggle from 'components/Form/Toggle';
 import WithErrors from 'components/Form/WithErrors';
 import WithLabel from 'components/Form/WithLabel';
 import { LinkTo } from 'components/Link';
@@ -91,6 +92,34 @@ class ExampleForm extends Form {
             </WithLabel>
           </WithErrors>
         </div>
+        <div className="m-bottom-m">
+          <WithErrors errors={this.errorsFor('toggle')}>
+            <WithLabel
+              nofocus
+              label="Toggle"
+              value={this.valueFor('toggle')}
+              initialValue={this.valueFor('toggle')}
+              onChange={this.handleChange.bind(this)}>
+              <Toggle name="toggle" checked={this.valueFor('toggle')}>
+                Toggle?
+              </Toggle>
+            </WithLabel>
+          </WithErrors>
+        </div>
+        <div className="m-bottom-m">
+          <WithErrors errors={this.errorsFor('toggle')}>
+            <WithLabel
+              nofocus
+              label="Deep toggle"
+              value={this.valueFor('deep.toggle')}
+              initialValue={this.valueFor('deep.toggle')}
+              onChange={this.handleChange.bind(this)}>
+              <Toggle name="deep.toggle" checked={this.valueFor('deep.toggle')}>
+                Deep Toggle?
+              </Toggle>
+            </WithLabel>
+          </WithErrors>
+        </div>
         <Button className="landscape-m" type="submit">
           Submit
         </Button>
@@ -132,6 +161,10 @@ addComponent(
           b: true,
         },
         radio: 'a',
+        toggle: false,
+        deep: {
+          toggle: false,
+        },
       },
       errors: {
         input: ['Example error'],
