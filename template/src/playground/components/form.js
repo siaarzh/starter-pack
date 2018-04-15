@@ -49,7 +49,7 @@ class ExampleForm extends Form {
               initialValue={this.initialValueFor('select')}>
               <Select
                 className="landscape-m"
-                options={['a', 'b', 'c']}
+                options={['', 'a', 'b', 'c']}
                 labels={{ a: 'Label for a', b: 'Label for b' }}
                 onChange={this.handleChange.bind(this)}
               />
@@ -156,6 +156,7 @@ addComponent(
       fields: {
         input: 'default value',
         textarea: '',
+        select: '',
         checkbox: {
           a: false,
           b: true,
