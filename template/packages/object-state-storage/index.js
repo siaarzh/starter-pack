@@ -116,7 +116,7 @@ export default class ObjectStateStorage {
       return;
     }
     const prevState = clone(this._currentState);
-    this._currentState = merge(this._currentState, patch(this.state));
+    this._currentState = merge(this._currentState, provider);
     this._stateVersion += 1;
 
     this._currentListeners = this._nextListeners.slice();

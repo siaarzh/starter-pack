@@ -140,10 +140,7 @@ addComponent(
   <div className="box-xl">
     <div className="m-bottom-l">
       <LinkTo page="playground" className="ff-mono">
-        {'> PL4YGR0UND '}
-        <span role="img" aria-label="Alien Monster">
-          👾
-        </span>
+        {'> PL4YGR0UND 👾'}
       </LinkTo>
     </div>
     <h1 className="m-bottom-m">Form example</h1>

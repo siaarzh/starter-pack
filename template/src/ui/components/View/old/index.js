@@ -1,56 +1,12 @@
 import c from 'classnames';
-import { Consumer } from 'components-di';
-import Model from 'json-model';
+import { useDeps } from 'components-di';
 import React, { Component, Fragment } from 'react';
 import tabbable from 'tabbable';
 
+import mapper from './mapper';
+import s from './styles.css';
+
 const ESC = 27;
-
-export const viewPropsModel = new Model({
-  __type: 'object',
-  __value: {
-    scrollY: {
-      __type: 'number',
-      __value: 0,
-    },
-    modal: {
-      __type: 'string',
-      __value: 'none',
-    },
-  },
-});
-
-export function setModal(context, modalname = 'none') {
-  const modifier = {
-    modal: modalname,
-  };
-  context.controller.setState(() => {
-    if (modalname !== 'none') {
-      modifier.scrollY = global.window.scrollY;
-    }
-    return modifier;
-  });
-}
-
-function mapper({ context }) {
-  const state = context.session.store.state;
-  return {
-    scrollY: state.scrollY,
-    modal: state.modal,
-    actions: {
-      setModal: context.controller.setModal,
-    },
-  };
-}
-
-class ModalMountPoint extends Component {
-  shouldComponentUpdate() {
-    return false;
-  }
-  render() {
-    return <div id="modal-mount-point" />;
-  }
-}
 
 class View extends Component {
   constructor(props) {
@@ -61,15 +17,14 @@ class View extends Component {
     this.onFocusOut = this.onFocusOut.bind(this);
     this.onKeyDown = this.onKeyDown.bind(this);
   }
-
   componentDidUpdate(prevProps) {
-    if (prevProps.modal !== 'none' && this.props.modal === 'none') {
+    if (prevProps.modal !== null && this.props.modal === null) {
       // hide modal
       global.window.scroll(0, this.props.scrollY);
       global.document.removeEventListener('keydown', this.onKeyDown);
       global.document.removeEventListener('focusout', this.onFocusOut);
       global.document.removeEventListener('focusin', this.onFocusIn);
-    } else if (prevProps.modal === 'none' && this.props.modal !== 'none') {
+    } else if (prevProps.modal === null && this.props.modal !== null) {
       // display modal
       global.window.scroll(0, 0);
       global.document.addEventListener('keydown', this.onKeyDown);
@@ -100,7 +55,7 @@ class View extends Component {
     }
   }
   hideModal() {
-    this.props.actions.setModal('none');
+    this.props.onHideModal();
   }
   componentWillUnmount() {
     global.document.removeEventListener('keydown', this.onKeyDown);
@@ -108,10 +63,10 @@ class View extends Component {
     global.document.removeEventListener('focusin', this.onFocusIn);
   }
   render() {
-    const { children, scrollY, modal } = this.props;
+    const { modal, scrollY, children } = this.props;
     return (
       <Fragment>
-        <div style={{ top: `-${scrollY}px` }} className={c('left-0 w-100', { fixed: modal !== 'none' })}>
+        <div style={{ top: `-${scrollY}px` }} className={c(s.content, { fixed: !!modal })}>
           {children}
         </div>
         <div
@@ -119,23 +74,17 @@ class View extends Component {
           ref={el => {
             this._modalContainer = el;
           }}
-          className={c('relative z999 minvh-100 flex flex-column flex-center box-xl', { none: modal === 'none' })}>
+          className={c('relative z999 minvh-100 flex flex-column flex-center box-xl', { none: !modal })}>
           <div
             aria-hidden="true"
             className="absolute top-0 left-0 right-0 bottom-0 bg-neutral-5 opacity-50"
             onClick={this.hideModal.bind(this)}
           />
-          <ModalMountPoint />
+          {modal}
         </div>
       </Fragment>
     );
   }
 }
 
-export default function ViewWithDeps({ children }) {
-  return (
-    <Consumer mapper={mapper}>
-      <View>{children}</View>
-    </Consumer>
-  );
-}
+export default useDeps(mapper)(View);

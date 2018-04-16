@@ -1,4 +1,6 @@
+import { LinkTo } from 'components/Link';
 import React from 'react';
+
 import { addComponent } from '../Session.js';
 
 const pink = { background: 'pink' };
@@ -21,7 +23,12 @@ const color = {
 
 addComponent(
   'styles reference',
-  <div className="box-l">
+  <div className="box-xl">
+    <div className="m-bottom-l">
+      <LinkTo page="playground" className="ff-mono">
+        {'> PL4YGR0UND 👾'}
+      </LinkTo>
+    </div>
     <h1 className="m-bottom-m">Font sizes and line heights</h1>
     <div className="box-m m-bottom-m" style={note}>
       <b>Note:</b> keep in mind multicolumn combinations and vertical rhythm

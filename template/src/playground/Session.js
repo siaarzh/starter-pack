@@ -1,5 +1,7 @@
 import { Consumer } from 'components-di';
 import { LinkTo } from 'components/Link';
+import { setModal, viewPropsModel } from 'components/View';
+import { compose } from 'json-model';
 import React from 'react';
 import Router from 'router';
 import { Controller, Session } from 'session-controller';
@@ -12,7 +14,9 @@ export function createController(name, view, initialState = {}, actions = {}) {
       return name;
     }
     controllerWillMount() {
-      this.context.session.store.replaceState(() => initialState);
+      this.context.controller.model = compose(this.context.controller.model, viewPropsModel);
+      this.context.controller.setModal = setModal.bind(null, this.context);
+      this.context.controller.replaceState(() => initialState);
       this.actions = actions;
       this.view = view;
     }
@@ -27,12 +31,7 @@ export function addComponent(name, view, initialState = {}, actions = {}) {
 export function Playground({ components }) {
   return (
     <div className="box-l">
-      <h1 className="m-bottom-l ff-mono regular">
-        {'> PL4YGR0UND '}
-        <span role="img" aria-label="Alien Monster">
-          👾
-        </span>
-      </h1>
+      <h1 className="m-bottom-l ff-mono regular">{'> PL4YGR0UND 👾'}</h1>
       <ul>
         {components.map(componentName => {
           return (

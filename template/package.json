@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "server:start": "micro-dev ./server/index.js",
+    "server:start": "micro-dev ./server/index.js --watch ./build --ignore ./build/assets",
     "webpack:watch": "yarn run clear && webpack --config=webpack.config.js --watch",
     "clear": "rm -rf build/assets/** && touch build/assets/.keep"
   },
@@ -47,6 +47,7 @@
     "prop-types": "^15.6.1",
     "react": "^16.3.1",
     "react-dom": "^16.3.1",
+    "tabbable": "^1.1.2",
     "webpack": "^4.5.0",
     "webpack-cli": "^2.0.14"
   }

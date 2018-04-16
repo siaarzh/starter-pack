@@ -12,9 +12,10 @@ export default class Button extends Component {
     return !isEqual(propsButChildren, nextPropsButChildren) || !isEqual(this.state, nextState);
   }
   render() {
-    const { children, container = {}, backdrop = {}, className, ...restProps } = this.props;
+    let { children, container = {}, backdrop = {}, className, ...restProps } = this.props;
     container.className = ((container.className || '') + ` inline-block ${s.container || ''}`).trim();
     backdrop.className = ((backdrop.className || '') + s.backdrop).trim();
+    restProps = Object.assign({ type: 'button' }, restProps);
     return (
       <WithBackdrop container={container} backdrop={backdrop}>
         <button className={c('z1 cursor-pointer', className)} {...restProps}>
