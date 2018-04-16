@@ -1,14 +1,32 @@
 import { Provider, bindActions } from 'components-di';
-
+import Model from 'json-model';
+import Store from 'object-state-storage';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Store from 'object-state-storage';
 
 export class Controller {
   constructor(context) {
     this.context = {
       session: context,
-      controller: {},
+      controller: {
+        model: new Model({ __type: 'object', __value: { '*': { __type: '*' } } }),
+        setState: modifier => {
+          if (typeof modifier !== 'function') {
+            throw new Error('Modifier is not a function');
+          }
+          this.context.session.store.setState(state => {
+            return this.context.controller.model.applyTo(modifier(state), state);
+          });
+        },
+        replaceState: modifier => {
+          if (typeof modifier !== 'function') {
+            throw new Error('Modifier is not a function');
+          }
+          this.context.session.store.replaceState(state => {
+            return this.context.controller.model.applyTo(modifier(state), {});
+          });
+        },
+      },
     };
   }
   get name() {
