@@ -1,6 +1,12 @@
 import get from 'lodash.get';
 import { getJsonType } from 'object-state-storage';
 
+function assign(accum, key, value) {
+  if (value !== undefined) {
+    accum[key] = value;
+  }
+}
+
 export function applyDescription(value, description, pathToValue = [], shouldApplyDefaultValues = () => true) {
   // description: { __type, __value, __nullable, __item }
   const providedType = value === undefined ? 'undefined' : getJsonType(value);
@@ -25,11 +31,15 @@ export function applyDescription(value, description, pathToValue = [], shouldApp
       // run through definitionValue keys
       for (const definitionKey of Object.keys(describedValue)) {
         if (definitionKey !== '*') {
-          accum[definitionKey] = applyDescription(
-            value[definitionKey],
-            describedValue[definitionKey],
-            [...pathToValue, definitionKey],
-            shouldApplyDefaultValues
+          assign(
+            accum,
+            definitionKey,
+            applyDescription(
+              value[definitionKey],
+              describedValue[definitionKey],
+              [...pathToValue, definitionKey],
+              shouldApplyDefaultValues
+            )
           );
           modifierKeys.delete(definitionKey);
         }
@@ -37,11 +47,15 @@ export function applyDescription(value, description, pathToValue = [], shouldApp
       if (describedValue['*'] !== undefined) {
         const modifierKeysCopy = new Set(modifierKeys);
         for (const modifierKey of modifierKeysCopy) {
-          accum[modifierKey] = applyDescription(
-            value[modifierKey],
-            describedValue['*'],
-            [...pathToValue, modifierKey],
-            shouldApplyDefaultValues
+          assign(
+            accum,
+            modifierKey,
+            applyDescription(
+              value[modifierKey],
+              describedValue['*'],
+              [...pathToValue, modifierKey],
+              shouldApplyDefaultValues
+            )
           );
           modifierKeys.delete(modifierKey);
         }
@@ -73,11 +87,10 @@ export function applyDescription(value, description, pathToValue = [], shouldApp
       const childKeys = new Set(Object.keys(value));
       const accum = {};
       for (const childKey of childKeys) {
-        accum[childKey] = applyDescription(
-          value[childKey],
-          describedItem,
-          [...pathToValue, childKey],
-          shouldApplyDefaultValues
+        assign(
+          accum,
+          childKey,
+          applyDescription(value[childKey], describedItem, [...pathToValue, childKey], shouldApplyDefaultValues)
         );
       }
       return accum;

@@ -1,5 +1,6 @@
-import JsonModel from '../index.js';
 import { merge } from 'object-state-storage';
+
+import JsonModel from '../index.js';
 
 describe('object-state-model', () => {
   test('skips default values for keys that already exist in state', () => {
@@ -125,5 +126,12 @@ describe('object-state-model', () => {
     expect(model.applyTo({ objectKey: { anyKey: 'any value' } }, { stringKey: 'some existing value' })).toEqual({
       objectKey: { anyKey: 'any value' },
     });
+  });
+  test('assigning to a state with default value', () => {
+    const model = new JsonModel({
+      __type: 'object',
+      __value: { number: { __type: 'number', __value: 0 } },
+    });
+    expect(model.applyTo({}, { number: 0 })).toEqual({});
   });
 });
