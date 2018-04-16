@@ -137,17 +137,19 @@ function mapper({ context, actions }) {
 
 addComponent(
   'form',
-  <div className="box-xl">
-    <div className="m-bottom-l">
-      <LinkTo page="playground" className="ff-mono">
-        {'> PL4YGR0UND 👾'}
-      </LinkTo>
+  () => (
+    <div className="box-xl">
+      <div className="m-bottom-l">
+        <LinkTo page="playground" className="ff-mono">
+          {'> PL4YGR0UND 👾'}
+        </LinkTo>
+      </div>
+      <h1 className="m-bottom-m">Form example</h1>
+      <Consumer mapper={mapper}>
+        <ExampleForm />
+      </Consumer>
     </div>
-    <h1 className="m-bottom-m">Form example</h1>
-    <Consumer mapper={mapper}>
-      <ExampleForm />
-    </Consumer>
-  </div>,
+  ),
   {
     form: {
       fields: {

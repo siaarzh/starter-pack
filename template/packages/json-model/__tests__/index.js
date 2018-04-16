@@ -130,8 +130,9 @@ describe('object-state-model', () => {
   test('assigning to a state with default value', () => {
     const model = new JsonModel({
       __type: 'object',
-      __value: { number: { __type: 'number', __value: 0 } },
+      __value: { '*': { __type: '*' }, number: { __type: 'number', __value: 0 } },
     });
-    expect(model.applyTo({}, { number: 0 })).toEqual({});
+    expect(Object.keys(model.applyTo({}, { number: 0 }))).toEqual([]);
+    expect(model.applyTo({ foo: 'bar' }, {})).toEqual({ foo: 'bar', number: 0 });
   });
 });

@@ -21,8 +21,7 @@ const color = {
   border: '1px solid black',
 };
 
-addComponent(
-  'styles reference',
+addComponent('styles reference', () => (
   <div className="box-xl">
     <div className="m-bottom-l">
       <LinkTo page="playground" className="ff-mono">
@@ -152,4 +151,4 @@ addComponent(
       <div className="color-accent-1 m-right-m" style={color} />
     </div>
   </div>
-);
+));

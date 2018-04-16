@@ -52,12 +52,14 @@ export function start() {
 
   addComponent(
     'playground',
-    <Consumer
-      mapper={({ context, actions }) => {
-        return { components: context.session.store.state.components, actions };
-      }}>
-      <Playground />
-    </Consumer>,
+    () => (
+      <Consumer
+        mapper={({ context, actions }) => {
+          return { components: context.session.store.state.components, actions };
+        }}>
+        <Playground />
+      </Consumer>
+    ),
     { components: Object.keys(controllers) }
   );
 

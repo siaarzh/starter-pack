@@ -46,25 +46,27 @@ function ExampleModal({ name, actions, counter }) {
 
 addComponent(
   'modal',
-  <View>
-    <div className="box-xl">
-      <div className="m-bottom-l">
-        <LinkTo page="playground" className="ff-mono">
-          {'> PL4YGR0UND 👾'}
-        </LinkTo>
+  () => (
+    <View>
+      <div className="box-xl">
+        <div className="m-bottom-l">
+          <LinkTo page="playground" className="ff-mono">
+            {'> PL4YGR0UND 👾'}
+          </LinkTo>
+        </div>
+        <div>{'Scroll down a bit 👇'}</div>
+        <div style={{ height: '1000px' }} />
+        <div className="bg-neutral-5 color-neutral-0 m-bottom-m">Stop! Here is your modal:</div>
+        <StaticConsumer mapper={provideSetModal}>
+          <Button className="landscape-m">Open modal</Button>
+        </StaticConsumer>
+        <Consumer mapper={provideModalProps}>
+          <ExampleModal />
+        </Consumer>
+        <div style={{ height: '1000px' }} />
       </div>
-      <div>{'Scroll down a bit 👇'}</div>
-      <div style={{ height: '1000px' }} />
-      <div className="bg-neutral-5 color-neutral-0 m-bottom-m">Stop! Here is your modal:</div>
-      <StaticConsumer mapper={provideSetModal}>
-        <Button className="landscape-m">Open modal</Button>
-      </StaticConsumer>
-      <Consumer mapper={provideModalProps}>
-        <ExampleModal />
-      </Consumer>
-      <div style={{ height: '1000px' }} />
-    </div>
-  </View>,
+    </View>
+  ),
   {
     counter: 0,
   },
