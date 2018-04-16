@@ -102,3 +102,29 @@ export default class JsonModel {
     return applyDescription(value, this._description);
   }
 }
+
+export function compose(...models) {
+  // test if all of provided models are of type "object"
+  for (const model of models) {
+    if (model._description.__type !== 'object') {
+      throw new Error('Only models of "object" type are composable');
+    }
+  }
+  const allKeys = [];
+  for (const model of models) {
+    for (const key of Object.keys(model._description.__value)) {
+      if (allKeys.includes(key)) {
+        throw new Error('No duplicate keys are allowed when composing models');
+      }
+      allKeys.push(key);
+    }
+  }
+  const __value = models.reduce((accum, model) => {
+    Object.assign(accum, model._description.__value);
+    return accum;
+  }, {});
+  return new JsonModel({
+    __type: 'object',
+    __value,
+  });
+}
