@@ -19,7 +19,7 @@ export default class Select extends Component {
   render() {
     const { container = {}, backdrop = {}, className, options, labels = {}, value, ...restProps } = this.props;
     container.className = ((container.className || '') + `${s.container || ''}`).trim();
-    backdrop.className = ((backdrop.className || '') + s.backdrop).trim();
+    backdrop.className = ((backdrop.className || '') + ` ${s.backdrop}`).trim();
     return (
       <WithBackdrop container={container} backdrop={backdrop}>
         <div className={c(className, 'flex z1')}>

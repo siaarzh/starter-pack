@@ -14,7 +14,7 @@ export default class Textarea extends Component {
   render() {
     const { container = {}, backdrop = {}, className, ...restProps } = this.props;
     container.className = ((container.className || '') + `${s.container || ''}`).trim();
-    backdrop.className = ((backdrop.className || '') + s.backdrop).trim();
+    backdrop.className = ((backdrop.className || '') + ` ${s.backdrop}`).trim();
     return (
       <WithBackdrop container={container} backdrop={backdrop}>
         <textarea className={c('z1', className)} {...restProps} />

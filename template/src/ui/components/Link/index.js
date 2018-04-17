@@ -7,7 +7,7 @@ import s from './styles.css';
 
 export function Link({ children, container = {}, backdrop = {}, className, ...restProps }) {
   container.className = ((container.className || '') + ` inline-block ${s.container || ''}`).trim();
-  backdrop.className = ((backdrop.className || '') + s.backdrop).trim();
+  backdrop.className = ((backdrop.className || '') + ` ${s.backdrop}`).trim();
   return (
     <WithBackdrop container={container} backdrop={backdrop}>
       <a className={c('relative z1 cursor-pointer', s.link, className)} {...restProps}>

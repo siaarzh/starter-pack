@@ -14,7 +14,7 @@ export default class Button extends Component {
   render() {
     let { children, container = {}, backdrop = {}, className, ...restProps } = this.props;
     container.className = ((container.className || '') + ` inline-block ${s.container || ''}`).trim();
-    backdrop.className = ((backdrop.className || '') + s.backdrop).trim();
+    backdrop.className = ((backdrop.className || '') + ` ${s.backdrop}`).trim();
     restProps = Object.assign({ type: 'button' }, restProps);
     return (
       <WithBackdrop container={container} backdrop={backdrop}>
