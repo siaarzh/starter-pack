@@ -1,7 +1,5 @@
 const micro = require('micro');
-const https = require('https');
 const compress = require('micro-compress');
-const cert = require('openssl-self-signed-certificate');
 const fs = require('fs');
 const { promisify } = require('util');
 const readFile = promisify(fs.readFile);
@@ -68,13 +66,4 @@ async function handler(req, res) {
   }
 }
 
-const httpsOptions = {
-  key: cert.key,
-  cert: cert.cert,
-  passphrase: cert.passphrase,
-};
-
-const microHttps = fn => https.createServer(httpsOptions, (req, res) => micro.run(req, res, fn));
-const server = microHttps(compress(handler));
-
-server.listen(3000);
+module.exports = compress(handler);

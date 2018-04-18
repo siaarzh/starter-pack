@@ -2,7 +2,7 @@
   "version": "1.0.0",
   "name": "starter-pack-template",
   "scripts": {
-    "start": "node server/index.js"
+    "start": "micro server/index.js"
   },
   "now": {
     "alias": "starter-pack-template"
@@ -11,6 +11,6 @@
     "https": "^1.0.0",
     "micro": "^9.1.4",
     "micro-compress": "^1.0.0",
-    "openssl-self-signed-certificate": "^1.1.6"
+    "mime": "^2.3.1"
   }
 }
