@@ -85,6 +85,10 @@ const options = {
         loader: 'babel-loader',
       },
       {
+        test: /\.(png|jpg|gif|svg)$/,
+        loader: 'file-loader',
+      },
+      {
         test: /\.css$/,
         use: [
           CssExtractPlugin.loader,
@@ -117,15 +121,6 @@ const options = {
                 require('postcss-clean')({}),
               ],
             },
-          },
-          {
-            test: /\.(png|jpg|gif|svg)$/,
-            use: [
-              {
-                loader: 'file-loader',
-                options: {},
-              },
-            ],
           },
         ],
       },

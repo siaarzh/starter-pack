@@ -91,4 +91,10 @@ Temporary Items
 
 # End of https://www.gitignore.io/api/osx,node
 
+build/assets/*
+!build/assets/.keep
+build/pages/*
+!build/pages/.keep
 wallaby.js
+!src/ui/components/Icon
+.temp

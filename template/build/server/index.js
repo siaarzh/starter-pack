@@ -31,6 +31,7 @@ async function handler(req, res) {
       data = await readFile(file);
     } catch (err) {
       micro.send(res, 500);
+      return;
     }
     res.setHeader('Content-Type', mime.getType(file));
     micro.send(res, 200, data);
