@@ -99,11 +99,13 @@ export class Session {
     if (!this.controller.view) {
       throw new Error(`Controller "${this.controller.name}" should have view`);
     }
-    ReactDOM.render(
-      <Provider value={{ deps: this.controller.provideDeps() }}>
-        <this.controller.view />
-      </Provider>,
-      this.mountPoint
-    );
+    if (process.env.TARGET !== 'node') {
+      ReactDOM.render(
+        <Provider value={{ deps: this.controller.provideDeps() }}>
+          <this.controller.view />
+        </Provider>,
+        this.mountPoint
+      );
+    }
   }
 }

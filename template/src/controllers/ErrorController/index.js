@@ -1,6 +1,7 @@
 import { viewPropsModel } from 'components/View';
 import Model, { compose } from 'json-model';
 import { Controller } from 'session-controller';
+import globalPropsModel from 'utils/globalPropsModel';
 import RootComponent from 'views/ErrorControllerView';
 
 const model = new Model({
@@ -20,7 +21,7 @@ export default class ErrorController extends Controller {
     return 'ErrorController';
   }
   controllerWillMount(data = {}) {
-    this.context.controller.model = compose(model, viewPropsModel);
+    this.context.controller.model = compose(model, viewPropsModel, globalPropsModel);
     this.context.controller.replaceState(() => data);
     this.view = RootComponent;
   }

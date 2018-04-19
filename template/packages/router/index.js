@@ -79,12 +79,20 @@ export default class Router {
   constructor() {
     // routes have to be sorted
     this._routes = [];
-    this._history = createHistory();
 
-    this._history.listen((location, action) => {
-      // action is one of [PUSH, REPLACE, POP, undefined]
-      this.onLocationChange(location, action);
-    });
+    if (process.env.TARGET !== 'node') {
+      this._history = createHistory();
+      this._history.listen((location, action) => {
+        // action is one of [PUSH, REPLACE, POP, undefined]
+        this.onLocationChange(location, action);
+      });
+    } else {
+      this._history = {
+        listen: () => {},
+        push: () => {},
+        replace: () => {},
+      };
+    }
   }
   onLocationChange(location, action) {
     const route = findRoute(location, this._routes);

@@ -98,3 +98,4 @@ build/pages/*
 wallaby.js
 !src/ui/components/Icon
 .temp
+!.temp/.keep

@@ -135,6 +135,7 @@ const options = {
       'process.env': {
         NODE_ENV: JSON.stringify(mode),
         VERSION: JSON.stringify(appVersion),
+        TARGET: JSON.stringify('browser'),
       },
     }),
     new ExtractManifestPlugin(),

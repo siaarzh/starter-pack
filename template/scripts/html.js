@@ -1,5 +1,9 @@
 const fs = require('fs');
 const path = require('path');
+const ReactDOMServer = require('react-dom/server');
+const React = require('react');
+
+import { Provider } from 'components-di';
 
 function indent(str = '', level = 1) {
   const lines = str.split('\n');
@@ -37,8 +41,6 @@ ${assets.svg}
 </html>`;
 }
 
-console.log(process.env.NODE_ENV);
-
 function css(href) {
   return `<link rel='stylesheet' media='screen' href='/assets/${href}'>`;
 }
@@ -51,7 +53,7 @@ function js(src, embed = false) {
 }
 
 const svg = indent(fs.readFileSync(path.join(__dirname, '..', 'src', 'assets', 'visuals', 'index.svg')).toString(), 3);
-const manifest = require(path.join(__dirname, '..', 'build', 'assets', 'manifest.json'));
+const manifest = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'build', 'assets', 'manifest.json')).toString());
 let runtime;
 if (process.env.NODE_ENV === 'production') {
   const runtimeSrc = fs.readFileSync(path.join(__dirname, '..', 'build', 'assets', manifest.runtime.js)).toString();
@@ -85,3 +87,29 @@ fs.writeFileSync(
     }
   )
 );
+
+const { router, session } = require('../src/main.js').default;
+
+// patch session.render method to create a file
+session.render = function render() {
+  const content = ReactDOMServer.renderToStaticMarkup(
+    <Provider value={{ deps: session.controller.provideDeps() }}>
+      <session.controller.view />
+    </Provider>
+  );
+  const file = session.context.store.state.pathname + '.html';
+  fs.writeFileSync(
+    path.join(__dirname, '..', 'build', 'pages', file),
+    template(
+      { title: 'STARTER-PACK' },
+      {
+        svg,
+        css: [css(manifest.main.css)],
+        js: [runtime, js(manifest.vendor.js), js(manifest.main.js)],
+      },
+      content
+    )
+  );
+};
+
+router.onLocationChange({ pathname: '/404', search: '' });

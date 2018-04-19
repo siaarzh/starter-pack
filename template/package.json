@@ -7,7 +7,8 @@
     "webpack:watch": "yarn run clear && webpack --config=webpack.config.js --watch",
     "webpack:build": "export WEBPACK_MODE=production && yarn run clear && webpack --config=webpack.config.js",
     "clear": "rm -rf build/assets/** && touch build/assets/.keep",
-    "html": "rm -rf build/pages/** && touch build/pages/.keep && node scripts/html.js",
+    "html:pre": "rm -rf .temp/** && touch .temp/.keep && webpack --config=scripts/html.config.js",
+    "html": "yarn run html:pre && rm -rf build/pages/** && touch build/pages/.keep && node .temp/html.js",
     "html:prod": "export NODE_ENV=production && yarn run html",
     "build": "yarn run webpack:build && yarn run html:prod"
   },
