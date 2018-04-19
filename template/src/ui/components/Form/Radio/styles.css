@@ -1,7 +1,8 @@
 @import 'assets/css/variables.css';
 
 .radio {
-  float: left;
+  display: inline-block;
+  vertical-align: top;
   height: var(--lh-m);
   width: var(--lh-m);
   margin-right: var(--box-m);

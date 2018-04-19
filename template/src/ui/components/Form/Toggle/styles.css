@@ -1,7 +1,8 @@
 @import 'assets/css/variables.css';
 
 .toggle {
-  float: left;
+  display: inline-block;
+  vertical-align: top;
   height: var(--lh-m);
   width: calc(1.5 * var(--lh-m));
   margin-right: var(--box-m);
