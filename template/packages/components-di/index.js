@@ -79,9 +79,6 @@ export class MapDeps extends React.Component {
       component.setState(mapper(deps));
     }, true);
   }
-  shouldComponentUpdate(nextProps, nextState) {
-    return !isEqual(this.state, nextState);
-  }
   componentWillUnmount() {
     this.stopReceivingUpdates();
   }
