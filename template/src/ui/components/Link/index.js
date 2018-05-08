@@ -1,8 +1,7 @@
 import c from 'classnames';
-import { StaticConsumer } from 'components-di';
+import { Consumer } from 'components-di';
 import WithBackdrop from 'components/WithBackdrop';
 import React from 'react';
-
 import s from './styles.css';
 
 export function Link({ children, container = {}, backdrop = {}, className, ...restProps }) {
@@ -35,10 +34,10 @@ function WithRouterActions({ urlFor, historyPushPage, pagename, data, children }
 
 export function LinkTo({ children, page, data, ...restProps }) {
   return (
-    <StaticConsumer mapper={mapper}>
+    <Consumer mapper={mapper}>
       <WithRouterActions pagename={page} data={data}>
         <Link {...restProps}>{children}</Link>
       </WithRouterActions>
-    </StaticConsumer>
+    </Consumer>
   );
 }

@@ -11,7 +11,6 @@ import WithErrors from 'components/Form/WithErrors';
 import WithLabel from 'components/Form/WithLabel';
 import { LinkTo } from 'components/Link';
 import React from 'react';
-
 import { addComponent } from '../Session.js';
 
 class ExampleForm extends Form {
@@ -135,46 +134,47 @@ function mapper({ context, actions }) {
   };
 }
 
-addComponent(
-  'form',
-  () => (
-    <div className="box-xl">
-      <div className="m-bottom-l">
-        <LinkTo page="playground" className="ff-mono">
-          {'> PL4YGR0UND 👾'}
-        </LinkTo>
+export default () =>
+  addComponent(
+    'form',
+    () => (
+      <div className="box-xl">
+        <div className="m-bottom-l">
+          <LinkTo page="playground" className="ff-mono">
+            {'> PL4YGR0UND 👾'}
+          </LinkTo>
+        </div>
+        <h1 className="m-bottom-m">Form example</h1>
+        <Consumer mapper={mapper}>
+          <ExampleForm />
+        </Consumer>
       </div>
-      <h1 className="m-bottom-m">Form example</h1>
-      <Consumer mapper={mapper}>
-        <ExampleForm />
-      </Consumer>
-    </div>
-  ),
-  {
-    form: {
-      fields: {
-        input: 'default value',
-        textarea: '',
-        select: '',
-        checkbox: {
-          a: false,
-          b: true,
-        },
-        radio: 'a',
-        toggle: false,
-        deep: {
+    ),
+    {
+      form: {
+        fields: {
+          input: 'default value',
+          textarea: '',
+          select: '',
+          checkbox: {
+            a: false,
+            b: true,
+          },
+          radio: 'a',
           toggle: false,
+          deep: {
+            toggle: false,
+          },
+        },
+        errors: {
+          input: ['Example error'],
+          textarea: [],
         },
       },
-      errors: {
-        input: ['Example error'],
-        textarea: [],
+    },
+    {
+      handleSubmit: function handleSubmit(context, fields) {
+        context.session.store.setState(() => ({ form: { fields } }));
       },
-    },
-  },
-  {
-    handleSubmit: function handleSubmit(context, fields) {
-      context.session.store.setState(() => ({ form: { fields } }));
-    },
-  }
-);
+    }
+  );

@@ -124,21 +124,6 @@ function createContextProviderComponents() {
         </Context.Consumer>
       );
     },
-    StaticConsumer: function StaticConsumer(props) {
-      const { mapper, children, args } = props;
-      return (
-        <Context.Consumer>
-          {props => {
-            const { deps } = props;
-            return (
-              <React.Fragment>
-                {React.Children.map(children, child => React.cloneElement(child, mapper(deps, args)))}
-              </React.Fragment>
-            );
-          }}
-        </Context.Consumer>
-      );
-    },
   };
 }
 
@@ -152,4 +137,3 @@ if (!hasInstance) {
 
 export const Consumer = global[instanceId].Consumer;
 export const Provider = global[instanceId].Provider;
-export const StaticConsumer = global[instanceId].StaticConsumer;
