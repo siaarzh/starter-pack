@@ -1,5 +1,6 @@
-import React from 'react';
 import { getJsonType } from 'object-state-storage';
+import { defer } from 'promise-utils';
+import React from 'react';
 
 export function bindActions(actions = {}, context, accum = {}) {
   Object.keys(actions).forEach(key => {
@@ -66,21 +67,34 @@ export function isEqual(valueA, valueB) {
 export class MapDeps extends React.Component {
   constructor(props) {
     super(props);
-    const { mapper, deps } = this.props;
-    this.state = mapper(deps);
+    const { mapper = () => ({}), deps, args } = this.props;
+    this.state = mapper(deps, args);
   }
   componentDidMount() {
-    const { mapper, deps } = this.props;
+    let { mapper, deps } = this.props;
     const component = this;
-    // in case state already changed
-    this.setState(mapper(deps));
-
+    this._setState = function setState() {
+      component.setState(mapper(component.props.deps, component.props.args));
+    };
+    this._deferredSetState = defer(this._setState);
     this.stopReceivingUpdates = deps.context.session.store.subscribe(function listener() {
-      component.setState(mapper(deps));
+      component._deferredSetState.cancel();
+      component._deferredSetState = defer(component._setState);
     }, true);
+  }
+  componentDidUpdate(prevProps) {
+    const { children: prevChildren, ...otherPrevProps } = prevProps;
+    const { children: currentChildren, ...otherCurrentProps } = this.props;
+    if (!isEqual(otherPrevProps, otherCurrentProps)) {
+      this._deferredSetState.cancel();
+      this._deferredSetState = defer(this._setState);
+    }
   }
   componentWillUnmount() {
     this.stopReceivingUpdates();
+    if (this._deferredSetState) {
+      this._deferredSetState.cancel();
+    }
   }
   render() {
     return (
@@ -96,13 +110,13 @@ function createContextProviderComponents() {
   return {
     Provider: Context.Provider,
     Consumer: function Consumer(props) {
-      const { mapper, children } = props;
+      const { mapper, children, ...restProps } = props;
       return (
         <Context.Consumer>
           {props => {
             const { deps } = props;
             return (
-              <MapDeps deps={deps} mapper={mapper}>
+              <MapDeps deps={deps} mapper={mapper} {...restProps}>
                 {children}
               </MapDeps>
             );
@@ -111,14 +125,14 @@ function createContextProviderComponents() {
       );
     },
     StaticConsumer: function StaticConsumer(props) {
-      const { mapper, children } = props;
+      const { mapper, children, args } = props;
       return (
         <Context.Consumer>
           {props => {
             const { deps } = props;
             return (
               <React.Fragment>
-                {React.Children.map(children, child => React.cloneElement(child, mapper(deps)))}
+                {React.Children.map(children, child => React.cloneElement(child, mapper(deps, args)))}
               </React.Fragment>
             );
           }}
